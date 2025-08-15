@@ -1,0 +1,44 @@
+class MyHashSet {
+    private int buckets;
+    private List<Integer>[] data;
+
+
+    public MyHashSet() {
+        buckets = 15000;
+        data = new ArrayList[buckets];
+        for(int i = 0; i < buckets; i++){
+            data[i] = new ArrayList<>();
+        }
+        
+    }
+
+      private int hash(int key) {
+        return key % buckets;
+    }
+    
+    public void add(int key) {
+      int hashKey = hash(key);
+      if (!data[hashKey].contains(key)) {
+        data[hashKey].add(key);
+      }
+        
+    }
+    
+    public void remove(int key) {
+         int hashKey = hash(key);
+         data[hashKey].remove(Integer.valueOf(key));
+    }
+    
+    public boolean contains(int key) {
+        int hashKey = hash(key);
+        return data[hashKey].contains(key);
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */

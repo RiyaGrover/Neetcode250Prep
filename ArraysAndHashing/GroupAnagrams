@@ -1,0 +1,47 @@
+// with soring 
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for(String s : strs){
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+            String key = new String(arr);
+
+           map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
+        }
+
+        return new ArrayList<>(map.values());
+    }
+}
+
+
+// without sorting 
+
+
+import java.util.*;
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+
+        for (String s : strs) {
+            int[] freq = new int[26]; // Only lowercase letters a-z
+            for (char c : s.toCharArray()) {
+                freq[c - 'a']++;
+            }
+
+            // Build a string key from frequency array
+            StringBuilder sb = new StringBuilder();
+            for (int f : freq) {
+                sb.append(f).append('#'); // use '#' to separate counts
+            }
+            String key = sb.toString();
+
+            // Add the string to the map
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
+        }
+
+        return new ArrayList<>(map.values());
+    }
+}
